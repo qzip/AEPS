@@ -1,0 +1,7 @@
+= AEPS (Aadhar Enabled Payment System) Application
+
+*Work-in-progress*
+
+see `docs` for documentation.
+
+
