@@ -30,49 +30,97 @@ service AgentLogin {
 }
 
 service Transact {
- rpc LoadAEPSOnboardBanks(ListBanksReq) returns () {}
- rpc BalanceEnquiry() returns () {}
- rpc CashWithdrawal() returns (){}
- rpc CashDeposit() returns () {}
- rpc FundsTransfer() returns () {}
+ rpc LoadAEPSOnboardBanks(ListBanksReq) returns (ListBanksRes) {}
+ rpc BalanceEnquiry(BalanceEnquiryReq) returns (BalanceRes) {}
+ rpc CashWithdrawal(AmountReq) returns (BalanceRes){}
+ rpc CashDeposit(AmountReq) returns (BalanceRes) {}
+ rpc FundsTransfer(FundsTransferReq) returns (BalanceRes) {}
 
 }
 
 message DeviceSignature {
-  string terminalId = 1
-  string ipAddress = 2
-  string mac = 3
+  string terminalId = 1;
+  string ipAddress = 2;
+  string mac = 3;
 }
 
 message SessionHeader {
-   DeviceSignature deviceSig = 1
-   string sessionId = 2
+   DeviceSignature deviceSig = 1;
+   string sessionId = 2;
+}
+
+message Amount {
+  uint64 rupees = 1;
+  uint32 paisa =  2  ; 
+}
+
+message AmountReq {
+   SessionHeader sessionHdr  = 1;
+   CustomerInfo  customerInfo = 2;
+   Amount        amount = 3;
+}
+
+message FundsTransferReq {
+   SessionHeader sessionHdr  = 1;
+   CustomerInfo  customerInfo = 2;
+   AccountInfo   beneficiary =3;
+   Amount        amount = 4;
+     
+}
+
+message BalanceEnquiryReq {
+   SessionHeader sessionHdr  = 1;
+   CustomerInfo  customerInfo = 2;
+}
+
+message BalanceRes {
+  oneof result {
+    string errMsg = 1;
+    Amount balance = 2; // should the account number and IFSC code be retrieved?
+  }
+  string transactionRef = 3;
+}
+
+message AccountInfo {
+  string bankIIN = 1;
+  string aadhaarNo = 2;
+}
+message CustomerInfo {
+  AccountInfo accountInfo = 1
+  bytes  fingerprint = 2;
 }
 
 message ListBanksReq {
-  SessionHeader sessionHdr  = 1
+  SessionHeader sessionHdr  = 1;
 }
 message ListBanksOkRes {
-  //todo
+  repeated BankInfo banks = 1;
 }
+
+message BankInfo {
+   string bankIIN = 1;
+   string bankName = 2;
+}
+
+
 message ListBanksRes {
   oneof result {
-    string errMsg = 1
-    ListBanksOkRes bankList = 2
+    string errMsg = 1;
+    ListBanksOkRes bankList = 2;
   }
 }
 
 message LoginReq {
-  DeviceSignature deviceSig = 1
-  string agentId = 2
-  string aadhaarNo = 3
-  bytes  fingerprint = 4
+  DeviceSignature deviceSig = 1;
+  string agentId = 2;
+  string aadhaarNo = 3;
+  bytes  fingerprint = 4;
 }
 
 message LoginRes {
   oneof result {
-     string errMsg = 1
-     string sessionId = 2
+     string errMsg = 1;
+     string sessionId = 2;
   }	 
 }
 
