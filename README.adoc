@@ -4,4 +4,8 @@
 
 see `docs` for documentation.
 
+.Features
+* KYC enabled
+* OTP/TOTP support
+* Compatiable with NPCI UPI
 
