@@ -23,7 +23,7 @@ syntax = "proto3";
 
 package protos;
 option java_package = "in.qzip.aeps.protos";
-import "google/protobuf/timestamp.proto";
+//import "google/protobuf/timestamp.proto";
 
 service AgentLogin {
    rpc login(LoginReq) returns (LoginRes) {}
@@ -86,7 +86,7 @@ message AccountInfo {
   string aadhaarNo = 2;
 }
 message CustomerInfo {
-  AccountInfo accountInfo = 1
+  AccountInfo accountInfo = 1;
   bytes  fingerprint = 2;
 }
 
