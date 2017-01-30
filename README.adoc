@@ -9,3 +9,14 @@ see `docs` for documentation.
 * OTP/TOTP support
 * Compatiable with NPCI UPI
 
+.Java
+
+https://github.com/google/protobuf/releases[protocol buffer compilersrelease git page]
+
+https://github.com/google/protobuf/releases/tag/v3.1.0[Release 3.1.0 tools]
+
+ Java nano 3.1.0
+
+https://github.com/grpc/grpc-java[gRPC-Java - An RPC library and framework]
+
+ protoc  --java_out=.  qzip-aeps.proto
